@@ -1,11 +1,7 @@
-# Fairness_feedback_nlp_test
-Testing Fairness Feedback nlp Code
+## Fairness Feedback NLP Testing
+### Testing Fairness Feedback nlp Code
 
-Deakin Internship 2023
-Supervisor: Dr. Shiva Pokhrel
-Author: Te’ Claire
-
-Reference Material:
+#### Reference:
 ICLR (International Conference on Learning Representations) 2023 paper "Human-Guided Fair Classification for Natural Language Processing." 
 
 The goal of the research is to develop a fair classification approach for Natural Language Processing (NLP) tasks. Using unsupervised style transfer and the zero-shot capabilities of GPT-3 (a language model developed by OpenAI) to generate pairs of sentences that are similar in meaning but differ along sensitive attributes. The model is then validated with human feedback to ensure that the generated pairs adhere to fair constraints, meaning they should be treated equally. The resulting pairs are used to train fair downstream toxicity classifiers, which aim to mitigate biases and ensure equitable outcomes in NLP tasks.
