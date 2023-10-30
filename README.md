@@ -5,7 +5,7 @@ This research reproduces and tests the fair classification for Natural Language 
 
 
 Project includes,
-Phase 1, Human-Guided Fair Classification for NLP
+Phase 1, Human-Guided Fair Classification for NLP and 
 Phase 2, Semantic Communication
 
 
