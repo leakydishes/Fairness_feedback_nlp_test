@@ -1,22 +1,40 @@
-Deakin University Internship 2023
+# Modeling Fair Classification over Natural Language Processing for Semantic Communication
+
+### Overview
+The aim of this research is to enhance communication clarity within pretrained large language models. The main objective in this research is to improve information transmission efficiency by minimising ambiguity. The analysis of Semantic Communication (SC) involves extracting meaningful information, identifying relationships, and assigning labels to words based on textual insight while disregarding redundant data. SC operates across three layers—Technical, Semantic, and Effectiveness—highlighting the challenge of achieving accurate semantic representation. The research is evaluated within two phases, note Phase 2 includes Part 1 and Part 2. In Phase 1, the project replicates a 2023 publication, employing a custom designed model for fair classification in Natural Language Processing (NLP). Phase 2 extends this exploration by implementing SC to minimise and evaluate semantic errors. The evaluation includes diverse models DistilBERT, RoBERTa (untrained) and RoBERTa (trained), with testing under different noise types (channels). Correct data pre-processing is highlighted, employing dynamic padding and sequence-to-sequence modeling. The RoBERTa model's performance is evaluated using Area Under the Curve (AUC) Receiver Operating Characteristics (ROC) within varying noise parameters. Recommendations for future research include hyperparameter tuning, longer training durations, and a focus on overfitting prevention to enhance the understanding of semantic communication models.
+
+### Project includes:
++ Phase 1, Human-Guided Fair Classification for NLP
++ Phase 2, Part 1
++ Phase 2, Part 2
+
+##### SC is regarded as ‘… a new communication paradigm’ [1, p. 2], inspired by Waver (1949) [2, p. 261–281] and Classical information theory (1948), [3, pp. 379-423]. The aim of SC is to reduce ambiguity (message meaning uncertainty) between receiver and transmitter (sender). SC ‘… provides a receiver with meaningful information extracted from the source to maximise information transmission...’ [4]. This is performed in SC analysis where relationship extraction occurs, identifying variables (words) present and extracting the relationship between them. The model labels words according to insights gained from textual data (the emotion the data conveys). Additionally redundant data is ignored as this style of information transfer focuses on semantic relevant data, having a low ‘signal-to-noise ratio’ SNR [5]. 
+
+##### ‘Semantic representation is an important issue in semantic communication’ [1, p. 1], the meaning of words (semantic representation) can be difficult to achieve accurate results, as encoded text is passed from the receiver to the sender, in current Deep Learning Neural Network’s (NNs) there is a latency in how data is separated in transmission from the ‘…data’s meaning and effectiveness for achieving specific goals…’ [6]. Accuracy and reducing semantic ambiguity is most important in NNs to perform successful predictions in semantic communication and representation. 
+
+##### The projects’ first goal (Phase 1) includes the replication of 2023 publication “Human-guided Fair Classification For Natural Language Processing” [7] and the implementation of SC (Phase 2), aiming to explore how NNs can extract and transmit data without loss of SC information to convey meaning through the SC system. Phase 1 uses text classifiers aimed to ‘…generate a diverse set of input pairs that aligns with human intuition…’ [7, p. 2], (semantically similar sentences) and validate pairs for toxicity classification with ‘Hugging Face Transformers’, ‘RoBERTa’ (A Robustly Optimized BERT Pretraining Approach) and ‘BART’ (bidirectional and AutoRegressive Transformers) [8], [9], [10]. Phase 2 process involves the technique of sentiment analysis using in natural language processing (NLP), to identify and extract subjective information from a dataset (text) such as opinions, emotions, and attitudes. 
+
+##### The Civil Comments dataset is produced by Jigsaw (2019), developed from a plugin of independent media sites during 2015 to 2017 with labels for toxicity and identity [11], used in both Phase 1 and Phase 2. This dataset was originally implemented in Phase 1 research included developing a fair classification approach for Natural Language Processing (NLP) tasks. The decision to use this same dataset is due to the vast amount of labelling which existed enabling the implementation of Phase 2aimed to implement Semantic Communication using Roberta_Kaggle model trained on the RobertaModel as an extension of Phase 1.
+
+##### Phase 2, the report focuses on implementing SC to minimse semantic errors and enhance transmission efficiency. The research extends Phase 1, exploring various models (DistilBERT, untrained and trained RoBERTa and a custom model DualModel) to investigate semantic relationships with the dataset (Civil Comments). Additional pre-processing via a channel encoder with physical channel (noise) simulation is added to create model system robustness using different types of noise (AWGN Multiplicative Gaussian noise and Rayleigh fading). Channel decoding and semantic recovery is than implemented using NNs with neural noise channels to decode the semantic representations and calculate Bit Error Rate (BER) values with additional evaluation (AUC ROC) to compare different noise parameters. 
+
+## Phase 1 
+##### Phase 1 aims to reproduce the “Human-guided Fair Classification for Natural Language Processing” research (2023), this included testing fair classification approach’s for Natural Language Processing (NLP) tasks [7]. Using an unsupervised style transfer to generate pairs of sentences that are similar in meaning but differ along sensitive attributes. The model is then validated with human feedback to ensure that the generated pairs adhere to fair constraints, meaning they should be treated equally. The resulting pairs are used to train fair downstream toxicity classifiers, which aim to mitigate biases and ensure equitable outcomes in NLP tasks, Fig 3. (An extension of this research is using GPT-3’s zero-shot capabilities, which was outside the scope of this report’s investigation due to time and budget limits). Phase 1 concludes with the analysis and evaluation of the resulting text classification model (Roberta_Kaggle) [7]. 
+
+![fig3](https://github.com/leakydishes/Fairness_feedback_nlp_test/assets/79079577/4be9c19a-aa48-4151-b597-412936d72f4a)
+#### Phase 1 System Architecture
+
+## Phase 2
+The Project additionally investigates Phase 2, which aimed to implement Semantic Communication by minimising semantic errors and improving transmission efficiency, this involved careful design of the proposed system. This research extended Phase 1, testing a multitude of models including DistilBERT, RoBERTa (untrained), and RoBERTa (trained), while examining the custom model DualModel [7], the aim was to investigate the semantic relationships between the dataset using the trained RoBERTa model [9].
+
+##### In Phase 1 "Robustness_Transfer.py" python file is used as the starting point for implementing semantic analytics and encoding, performed using a custom model ‘DualModel’ with a RoBERTa tokenizer. As SC is implemented by using a combination of Deep Neural Networks (NNs) and physical channel simulations, the data required pre-processing. In Phase 2 (Part 1), first model tested in this research included DistilBERT model and tokenizer to pre-process the text attribute (‘comment_text), this tokenized the text and truncated sequences to be shorter than the libraries maximum input length. 
+
+##### In Phase 2 (Part 2), the second model RoBERTa tested was trained using dataset Civil comments. The pre-processed data was then passed through a channel encoder with a physical channel simulation (semantic encoding) to test the robustness of the system under different types of noise (AWGN multiplicative Gaussian noise and Rayleigh fading), Fig 4. It was evident in the project that correctly pre-processing the data was one of the most important steps within this project, this was performed to ensure data was corrected for semantic errors in communication. Additionally dynamic padding was implemented to sentences which had longest length (in batch during collation), reducing time to padding the dataset due to the bidirectional encoder using seq2seq/ machine translation architecture and requiring ‘absolute position embedding’ left-to-right decoder [10]). This process shuffles the order of original sentences with a single mask token replacing spans of text. This model was specifically chosen as it uses a ‘Sequence-to-sequence’ with encoder (passed corrupted version of tokens) and decoder (passed original tokens with hidden mask). However this model requires specific splitting (doesn’t use token_type_ids for sequence classification) and required BartTokenizer (encode()) [10]. The channel decoding and semantic recovery was than implemented using the NNs with neural noise channel simulations, this is used to decode the semantic representations and calculate The Bit Error Rate (BER) values. The RoBERTa model’s system performance was then evaluated by comparing the AUC (Area Under the Curve) ROC (Receiver Operating Characteristics) values obtained under different channel noise (prediction) parameters and conditions.
+
+![fig4](https://github.com/leakydishes/Fairness_feedback_nlp_test/assets/79079577/4d89fb22-9013-474a-a875-036c9d59190b)
+#### Phase 2 (Part 2) Basic System Architecture
 
 
-This research reproduces and tests the fair classification for Natural Language Processing (NLP) tasks (Human-Guided Fair Classification for Natural Language Processing, 2023). Using unsupervised style transfer to generate pairs of sentences that are similar in meaning but differ along sensitive attributes. The model is then validated with human feedback to ensure that the generated pairs adhere to fair constraints (treated equally). The resulting pairs are used to train toxicity classifiers, which aim to mitigate biases and ensure equitable outcomes in NLP tasks.
 
 
-Project includes,
-Phase 1, Human-Guided Fair Classification for NLP and 
-Phase 2, Semantic Communication
 
-
-Reference:
-ICLR (International Conference on Learning Representations) 2023 paper "Human-Guided Fair Classification for Natural Language Processing." 
-
-*@inproceedings{
-dorner2023humanguided,
-title={Human-Guided Fair Classification for Natural Language Processing},
-author={Florian E. Dorner and Momchil Peychev and Nikola Konstantinov and Naman Goel and Elliott Ash and Martin Vechev},
-booktitle={The Eleventh International Conference on Learning Representations },
-year={2023},
-url={https://openreview.net/forum?id=N_g8TT9Cy7f}
-}*
