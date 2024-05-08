@@ -21,7 +21,8 @@ The aim of this research is to enhance communication clarity within pretrained l
 ## Phase 1 
 ##### Phase 1 aims to reproduce the “Human-guided Fair Classification for Natural Language Processing” research (2023), this included testing fair classification approach’s for Natural Language Processing (NLP) tasks [7]. Using an unsupervised style transfer to generate pairs of sentences that are similar in meaning but differ along sensitive attributes. The model is then validated with human feedback to ensure that the generated pairs adhere to fair constraints, meaning they should be treated equally. The resulting pairs are used to train fair downstream toxicity classifiers, which aim to mitigate biases and ensure equitable outcomes in NLP tasks, Fig 3. (An extension of this research is using GPT-3’s zero-shot capabilities, which was outside the scope of this report’s investigation due to time and budget limits). Phase 1 concludes with the analysis and evaluation of the resulting text classification model (Roberta_Kaggle) [7]. 
 
-![fig3](https://github.com/leakydishes/Fairness_feedback_nlp_test/assets/79079577/4be9c19a-aa48-4151-b597-412936d72f4a)
+![fig3](https://github.com/leakydishes/Fairness_feedback_nlp_test/assets/79079577/e1ed5679-549a-4524-a505-7390f260c253)
+
 #### Phase 1 System Architecture
 
 ## Phase 2
@@ -31,10 +32,10 @@ The Project additionally investigates Phase 2, which aimed to implement Semantic
 
 ##### In Phase 2 (Part 2), the second model RoBERTa tested was trained using dataset Civil comments. The pre-processed data was then passed through a channel encoder with a physical channel simulation (semantic encoding) to test the robustness of the system under different types of noise (AWGN multiplicative Gaussian noise and Rayleigh fading), Fig 4. It was evident in the project that correctly pre-processing the data was one of the most important steps within this project, this was performed to ensure data was corrected for semantic errors in communication. Additionally dynamic padding was implemented to sentences which had longest length (in batch during collation), reducing time to padding the dataset due to the bidirectional encoder using seq2seq/ machine translation architecture and requiring ‘absolute position embedding’ left-to-right decoder [10]). This process shuffles the order of original sentences with a single mask token replacing spans of text. This model was specifically chosen as it uses a ‘Sequence-to-sequence’ with encoder (passed corrupted version of tokens) and decoder (passed original tokens with hidden mask). However this model requires specific splitting (doesn’t use token_type_ids for sequence classification) and required BartTokenizer (encode()) [10]. The channel decoding and semantic recovery was than implemented using the NNs with neural noise channel simulations, this is used to decode the semantic representations and calculate The Bit Error Rate (BER) values. The RoBERTa model’s system performance was then evaluated by comparing the AUC (Area Under the Curve) ROC (Receiver Operating Characteristics) values obtained under different channel noise (prediction) parameters and conditions.
 
-![fig4](https://github.com/leakydishes/Fairness_feedback_nlp_test/assets/79079577/4d89fb22-9013-474a-a875-036c9d59190b)
+![fig4](https://github.com/leakydishes/Fairness_feedback_nlp_test/assets/79079577/82ba3b69-3637-4cc0-83cd-1e6020962705)
 #### Phase 2 (Part 2) Basic System Architecture
 
-
-
+![phase1_2](https://github.com/leakydishes/Fairness_feedback_nlp_test/assets/79079577/aec08143-6672-4540-9bc8-968d5b182d8c)
+#### High Level System Architecture
 
 
